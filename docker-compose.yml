@@ -1,17 +1,90 @@
-version: '3.8'
+version: "3.8"
 
 services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"     # Messaging port
-      - "15672:15672"   # Web management UI
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq  # Persistent volume
+      - stockapp-rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - stockapp-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: stockapp-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - stockapp-elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - stockapp-network
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.13.4
+    container_name: stockapp-logstash
+    volumes:
+      - ./logstash-config:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000"
+    environment:
+      - LS_JAVA_OPTS=-Xmx256m -Xms256m
+    depends_on:
+      - elasticsearch
+    stdin_open: true
+    tty: true
+    networks:
+      - stockapp-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.4
+    container_name: stockapp-kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - stockapp-network
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.13.4
+    container_name: stockapp-filebeat
+    user: root
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro 
+      - ./logs:/logs
+    command: filebeat -e --strict.perms=false
+    depends_on:
+      - logstash
+    networks:
+      - stockapp-network
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq-server-development
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - stockapp-seq-data:/data
+    networks:
+      - stockapp-network 
 
 volumes:
-  rabbitmq_data:
+  stockapp-elasticsearch-data:
+  stockapp-seq-data:
+  stockapp-rabbitmq-data:
+
+networks:
+  stockapp-network:
+    driver: bridge

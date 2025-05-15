@@ -20,6 +20,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		filebeat.yml = filebeat.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logstash-config", "logstash-config", "{0AA8BA10-0C77-4351-9ABF-604D25829E76}"
+	ProjectSection(SolutionItems) = preProject
+		logstash-config\logstash.conf = logstash-config\logstash.conf
 	EndProjectSection
 EndProject
 Global
@@ -58,6 +64,7 @@ Global
 		{063D6978-DB0F-4777-89F2-C47446D3D6FF} = {33F11202-6A3A-44B8-9D9D-EB284F271CB3}
 		{4F6A103B-D3A7-4ED8-8053-95B4344A2FE6} = {33F11202-6A3A-44B8-9D9D-EB284F271CB3}
 		{00FF9FEF-369F-8358-9DD1-7748192267FD} = {33F11202-6A3A-44B8-9D9D-EB284F271CB3}
+		{0AA8BA10-0C77-4351-9ABF-604D25829E76} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C20EBA1-7658-4DA6-9BC4-61414BD60F2A}

@@ -44,6 +44,7 @@ using Volo.Abp.RabbitMQ;
 using Volo.Abp.EventBus.RabbitMq;
 using RabbitMQ.Client;
 using Volo.Abp.Domain.Entities.Events.Distributed;
+using StockAppAbp.Shared.Hosting.AspNetCore;
 
 namespace OrderingService;
 
@@ -58,7 +59,8 @@ namespace OrderingService;
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpSwashbuckleModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpEventBusRabbitMqModule)
+    typeof(AbpEventBusRabbitMqModule),
+    typeof(StockAppAbpSharedHostingAspNetCore)
     )]
 public class OrderingServiceHttpApiHostModule : AbpModule
 {
@@ -101,11 +103,6 @@ public class OrderingServiceHttpApiHostModule : AbpModule
             options.AutoEventSelectors.AddNamespace("StockAppAbp.Shared.Hosting.Messages.Events");
 
         });
-
-        //Configure<AbpRabbitMqEventBusOptions>(options =>
-        //{
-        //   options.ExchangeType = "fanout";
-        //});
 
     }
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -12,6 +12,8 @@ using Volo.Abp.EventBus.Distributed;
 using JetBrains.Annotations;
 using Volo.Abp.ObjectMapping;
 using Volo.Abp.EventBus.RabbitMq;
+using Microsoft.Extensions.Logging;
+using Volo.Abp;
 
 namespace OrderingService.Orders
 {
@@ -19,24 +21,37 @@ namespace OrderingService.Orders
     {
         private readonly IRabbitMqDistributedEventBus _eventBus;
         private readonly IRepository<Order, Guid> _orderRepository;
+        private readonly ILogger<OrderAppService> _logger;
 
-        public OrderAppService(IRabbitMqDistributedEventBus eventBus, IRepository<Order, Guid> orderRepository)
+        public OrderAppService(IRabbitMqDistributedEventBus eventBus, IRepository<Order, Guid> orderRepository,ILogger<OrderAppService> logger )
         {
             _eventBus = eventBus;
             _orderRepository = orderRepository;
+            _logger = logger;
         }
 
-        
-        public async Task CreateOrderAsync(CreateOrderDto orderDto)
+
+        public async Task<Guid> AddOrderAsync(CreateOrderDto orderDto)
         {
-            var order = new Order(Guid.NewGuid(), orderDto.ProductId, orderDto.ProductName, orderDto.Quantity, orderDto.Price);
+            _logger.LogInformation("Start creating order for ProductId: {ProductId}, Quantity: {Quantity}",
+                orderDto.ProductId, orderDto.Quantity);
+
+            var order = new Order(Guid.NewGuid(), orderDto.ProductId, orderDto.ProductName,
+                orderDto.Quantity, orderDto.Price);
             await _orderRepository.InsertAsync(order);
+        
+            _logger.LogInformation("Order inserted with ID: {OrderId}", order.Id);
 
             var orderEvent = ObjectMapper.Map<Order, OrderCreatedIntegrationEto>(order);
-
             orderEvent.OrderId = order.Id;
-          
-            await _eventBus.PublishAsync(orderEvent); // Publish event to RabbitMQ
+
+            _logger.LogInformation("Publishing OrderCreatedIntegrationEto to RabbitMQ for OrderId: {OrderId} and  ProductId: {ProductId}", order.Id,orderDto.ProductId);
+         
+            await _eventBus.PublishAsync(orderEvent);
+
+            _logger.LogInformation("Order creation process completed successfully for OrderId: {OrderId} and ProductId {ProductId}", order.Id,orderDto.ProductId);
+       
+           return await Task.FromResult(order.Id);
         }
     }
 }

@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\StockAppAbp.Shared.Hosting.AspNetCore\StockAppAbp.Shared.Hosting.AspNetCore\StockAppAbp.Shared.Hosting.AspNetCore.csproj" />
     <ProjectReference Include="..\InventoryService.Application\InventoryService.Application.csproj" />
     <ProjectReference Include="..\InventoryService.HttpApi\InventoryService.HttpApi.csproj" />
     <ProjectReference Include="..\InventoryService.EntityFrameworkCore\InventoryService.EntityFrameworkCore.csproj" />

@@ -42,6 +42,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.EventBus.RabbitMq;
 using InventoryService.Products;
 using Volo.Abp.Domain.Entities.Events.Distributed;
+using StockAppAbp.Shared.Hosting.AspNetCore;
 
 namespace InventoryService;
 
@@ -56,7 +57,8 @@ namespace InventoryService;
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpSwashbuckleModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpEventBusRabbitMqModule)
+    typeof(AbpEventBusRabbitMqModule),
+    typeof(StockAppAbpSharedHostingAspNetCore)
     )]
 public class InventoryServiceHttpApiHostModule : AbpModule
 {

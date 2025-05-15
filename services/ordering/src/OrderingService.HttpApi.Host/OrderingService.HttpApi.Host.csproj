@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\StockAppAbp.Shared.Hosting.AspNetCore\StockAppAbp.Shared.Hosting.AspNetCore\StockAppAbp.Shared.Hosting.AspNetCore.csproj" />
     <ProjectReference Include="..\OrderingService.Application\OrderingService.Application.csproj" />
     <ProjectReference Include="..\OrderingService.HttpApi\OrderingService.HttpApi.csproj" />
     <ProjectReference Include="..\OrderingService.EntityFrameworkCore\OrderingService.EntityFrameworkCore.csproj" />

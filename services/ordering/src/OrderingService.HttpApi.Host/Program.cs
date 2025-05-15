@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using StockAppAbp.Shared.Hosting.AspNetCore;
 
 namespace OrderingService;
 
@@ -12,11 +13,14 @@ public class Program
 {
     public async static Task<int> Main(string[] args)
     {
-        Log.Logger = new LoggerConfiguration()
-            .WriteTo.Async(c => c.File("Logs/logs.txt"))
-            .WriteTo.Async(c => c.Console())
-            .CreateBootstrapLogger();
+        var assemblyName = typeof(Program).Assembly.GetName().Name;
 
+        //Log.Logger = new LoggerConfiguration()
+        //    .WriteTo.Async(c => c.File("Logs/logs.txt"))
+        //    .WriteTo.Async(c => c.Console())
+        //    .CreateBootstrapLogger();
+
+        SerilogConfigurationHelper.Configure(assemblyName);
         try
         {
             Log.Information("Starting OrderingService.HttpApi.Host.");
@@ -24,21 +28,22 @@ public class Program
             builder.Host
                 .AddAppSettingsSecretsJson()
                 .UseAutofac()
-                .UseSerilog((context, services, loggerConfiguration) =>
-                {
-                    loggerConfiguration
-                    #if DEBUG
-                        .MinimumLevel.Debug()
-                    #else
-                        .MinimumLevel.Information()
-                    #endif
-                        .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
-                        .Enrich.FromLogContext()
-                        .WriteTo.Async(c => c.File("Logs/logs.txt"))
-                        .WriteTo.Async(c => c.Console())
-                        .WriteTo.Async(c => c.AbpStudio(services));
-                });
+                 .UseSerilog();
+            //.UseSerilog((context, services, loggerConfiguration) =>
+                //{
+                //    loggerConfiguration
+                //    #if DEBUG
+                //        .MinimumLevel.Debug()
+                //    #else
+                //        .MinimumLevel.Information()
+                //    #endif
+                //        .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                //        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+                //        .Enrich.FromLogContext()
+                //        .WriteTo.Async(c => c.File("Logs/logs.txt"))
+                //        .WriteTo.Async(c => c.Console())
+                //        .WriteTo.Async(c => c.AbpStudio(services));
+                //});
             await builder.AddApplicationAsync<OrderingServiceHttpApiHostModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();
