@@ -1,0 +1,15 @@
+﻿{
+  "applications": {
+    "OrderingService.HttpApi.Host": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44327",
+      "path": "../../../src/OrderingService.HttpApi.Host/OrderingService.HttpApi.Host.csproj",
+      "kubernetesService": ".*-httpapihost$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 4
+      }
+    }
+  }
+}

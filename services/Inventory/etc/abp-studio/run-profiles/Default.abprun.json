@@ -1,0 +1,15 @@
+﻿{
+  "applications": {
+    "InventoryService.HttpApi.Host": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44305",
+      "path": "../../../src/InventoryService.HttpApi.Host/InventoryService.HttpApi.Host.csproj",
+      "kubernetesService": ".*-httpapihost$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 4
+      }
+    }
+  }
+}

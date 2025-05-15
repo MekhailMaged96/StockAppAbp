@@ -1,0 +1,101 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "OrderingService.Application": {
+      "path": "src/OrderingService.Application/OrderingService.Application.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.Application.Tests": {
+      "path": "test/OrderingService.Application.Tests/OrderingService.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "OrderingService.Domain.Shared": {
+      "path": "src/OrderingService.Domain.Shared/OrderingService.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.Application.Contracts": {
+      "path": "src/OrderingService.Application.Contracts/OrderingService.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.HttpApi": {
+      "path": "src/OrderingService.HttpApi/OrderingService.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.HttpApi.Client": {
+      "path": "src/OrderingService.HttpApi.Client/OrderingService.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.EntityFrameworkCore.Tests": {
+      "path": "test/OrderingService.EntityFrameworkCore.Tests/OrderingService.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "OrderingService.EntityFrameworkCore": {
+      "path": "src/OrderingService.EntityFrameworkCore/OrderingService.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.TestBase": {
+      "path": "test/OrderingService.TestBase/OrderingService.TestBase.abppkg",
+      "folder": "test"
+    },
+    "OrderingService.Domain.Tests": {
+      "path": "test/OrderingService.Domain.Tests/OrderingService.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "OrderingService.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/OrderingService.HttpApi.Client.ConsoleTestApp/OrderingService.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "OrderingService.DbMigrator": {
+      "path": "src/OrderingService.DbMigrator/OrderingService.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.HttpApi.Host": {
+      "path": "src/OrderingService.HttpApi.Host/OrderingService.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "OrderingService.Domain": {
+      "path": "src/OrderingService.Domain/OrderingService.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

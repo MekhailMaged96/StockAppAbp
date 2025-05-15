@@ -1,0 +1,11 @@
+{
+  "id": "0c40ba34-7507-45a2-8b29-aba96cc6d88b",
+  "template": "empty",
+  "options": {
+    "httpRequests": {
+      "ignoredUrls": [
+        "^/metrics$"
+      ]
+    }
+  }
+}

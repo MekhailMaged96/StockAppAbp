@@ -1,0 +1,101 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "InventoryService.Application": {
+      "path": "src/InventoryService.Application/InventoryService.Application.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.Application.Tests": {
+      "path": "test/InventoryService.Application.Tests/InventoryService.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "InventoryService.Domain.Shared": {
+      "path": "src/InventoryService.Domain.Shared/InventoryService.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.Application.Contracts": {
+      "path": "src/InventoryService.Application.Contracts/InventoryService.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.HttpApi": {
+      "path": "src/InventoryService.HttpApi/InventoryService.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.HttpApi.Client": {
+      "path": "src/InventoryService.HttpApi.Client/InventoryService.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.EntityFrameworkCore.Tests": {
+      "path": "test/InventoryService.EntityFrameworkCore.Tests/InventoryService.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "InventoryService.EntityFrameworkCore": {
+      "path": "src/InventoryService.EntityFrameworkCore/InventoryService.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.TestBase": {
+      "path": "test/InventoryService.TestBase/InventoryService.TestBase.abppkg",
+      "folder": "test"
+    },
+    "InventoryService.Domain.Tests": {
+      "path": "test/InventoryService.Domain.Tests/InventoryService.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "InventoryService.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/InventoryService.HttpApi.Client.ConsoleTestApp/InventoryService.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "InventoryService.DbMigrator": {
+      "path": "src/InventoryService.DbMigrator/InventoryService.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.HttpApi.Host": {
+      "path": "src/InventoryService.HttpApi.Host/InventoryService.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "InventoryService.Domain": {
+      "path": "src/InventoryService.Domain/InventoryService.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
