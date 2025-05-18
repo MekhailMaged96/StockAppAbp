@@ -62,6 +62,7 @@ public class ProductService : ApplicationService, IProductService
     public async Task ReserveAsync(Guid productId, int quantity)
     {
         _logger.LogInformation("Reserving {Quantity} of product {ProductId}", quantity, productId);
+
         var product = await _repository.GetAsync(productId);
         if (product.Quantity < quantity)
         {

@@ -265,7 +265,7 @@ public class OrderingServiceHttpApiHostModule : AbpModule
         {
             app.UseErrorPage();
         }
-        
+        app.UseCorrelationId();
         app.MapAbpStaticAssets();
         app.UseAbpStudioLink();
         app.UseRouting();
