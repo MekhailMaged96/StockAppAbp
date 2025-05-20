@@ -60,7 +60,7 @@ namespace OrderingService;
     typeof(AbpSwashbuckleModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpEventBusRabbitMqModule),
-    typeof(StockAppAbpSharedHostingAspNetCore)
+    typeof(StockAppAbpSharedHostingAspNetCoreModule)
     )]
 public class OrderingServiceHttpApiHostModule : AbpModule
 {
@@ -207,17 +207,28 @@ public class OrderingServiceHttpApiHostModule : AbpModule
 
     private static void ConfigureSwagger(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        context.Services.AddAbpSwaggerGenWithOidc(
-            configuration["AuthServer:Authority"]!,
-            ["OrderingService"],
-            [AbpSwaggerOidcFlows.AuthorizationCode],
-            null,
-            options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "OrderingService API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
-                options.CustomSchemaIds(type => type.FullName);
-            });
+        SwaggerConfigurationHelper.ConfigureWithOidc(
+                                                    context,
+                                                    authority: configuration["AuthServer:Authority"]!,
+                                                    scopes: new[] { "OrderingService" },
+                                                    apiTitle: "OrderingService API",
+                                                    apiVersion: "v1",
+                                                    apiName: "v1",
+                                                    flows: new[] { AbpSwaggerOidcFlows.AuthorizationCode },
+                                                    discoveryEndpoint: null
+                                                );
+
+        //context.Services.AddAbpSwaggerGenWithOidc(
+        //    configuration["AuthServer:Authority"]!,
+        //    ["OrderingService"],
+        //    [AbpSwaggerOidcFlows.AuthorizationCode],
+        //    null,
+        //    options =>
+        //    {
+        //        options.SwaggerDoc("v1", new OpenApiInfo { Title = "OrderingService API", Version = "v1" });
+        //        options.DocInclusionPredicate((docName, description) => true);
+        //        options.CustomSchemaIds(type => type.FullName);
+        //    });
     }
 
     private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)

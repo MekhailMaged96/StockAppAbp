@@ -1,0 +1,49 @@
+{
+    "ReverseProxy": {
+        "Routes": {
+            "Identity Service": {
+                "ClusterId": "Identity",
+                "Match": {
+                    "Path": "/identity/{**catch-all}"
+                }
+            },
+            "Ordering Service": {
+                "ClusterId": "Ordering",
+                "Match": {
+                    "Path": "/ordering/{**catch-all}"
+                },
+                "Transforms": [ { "PathPattern": "{**catch-all}" } ]
+            },
+            "Inventory Service": {
+                "ClusterId": "Inventory",
+                "Match": {
+                    "Path": "/inventory/{**catch-all}"
+                },
+                "Transforms": [ { "PathPattern": "{**catch-all}" } ]
+            }
+        },
+        "Clusters": {
+            "Identity": {
+                "Destinations": {
+                    "destination1": {
+                        "Address": "https://localhost:44362/"
+                    }
+                }
+            },
+            "Ordering": {
+                "Destinations": {
+                    "destination1": {
+                        "Address": "https://localhost:44327/"
+                    }
+                }
+            },
+            "Inventory": {
+                "Destinations": {
+                    "destination1": {
+                        "Address": "https://localhost:44305/"
+                    }
+                }
+            }
+        }
+    }
+}

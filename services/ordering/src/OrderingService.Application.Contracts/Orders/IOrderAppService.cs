@@ -9,6 +9,7 @@ namespace OrderingService.Orders
 {
     public interface IOrderAppService : IApplicationService
     {
-       public Task<Guid> AddOrderAsync(CreateOrderDto orderDto);
+       public Task<List<OrderDto>> GetListAsync();
+       public Task<Guid> CreateAsync(CreateOrderDto orderDto);
     }
 }

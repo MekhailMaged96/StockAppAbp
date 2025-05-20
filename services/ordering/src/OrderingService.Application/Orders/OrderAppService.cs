@@ -30,8 +30,13 @@ namespace OrderingService.Orders
             _logger = logger;
         }
 
+        public async Task<List<OrderDto>> GetListAsync()
+        {
+            var orders = await _orderRepository.GetListAsync();
 
-        public async Task<Guid> AddOrderAsync(CreateOrderDto orderDto)
+            return ObjectMapper.Map<List<Order>, List<OrderDto>>(orders);
+        }
+        public async Task<Guid> CreateAsync(CreateOrderDto orderDto)
         {
             _logger.LogInformation("Start creating order for ProductId: {ProductId}, Quantity: {Quantity}",
                 orderDto.ProductId, orderDto.Quantity);
@@ -53,5 +58,7 @@ namespace OrderingService.Orders
        
            return await Task.FromResult(order.Id);
         }
+
+     
     }
 }

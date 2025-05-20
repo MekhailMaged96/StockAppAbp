@@ -1,0 +1,6 @@
+@StockAppAbp.WebGateway_HostAddress = http://localhost:5149
+
+GET {{StockAppAbp.WebGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

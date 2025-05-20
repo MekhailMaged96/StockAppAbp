@@ -8,6 +8,7 @@ public class OrderingServiceApplicationAutoMapperProfile : Profile
 {
     public OrderingServiceApplicationAutoMapperProfile()
     {
+        CreateMap<Order, OrderDto>();
         CreateMap<Order, OrderCreatedIntegrationEto>();
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations

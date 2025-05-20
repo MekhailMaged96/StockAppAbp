@@ -1,0 +1,101 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "IdentityService.Application": {
+      "path": "src/IdentityService.Application/IdentityService.Application.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.Application.Tests": {
+      "path": "test/IdentityService.Application.Tests/IdentityService.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "IdentityService.Domain.Shared": {
+      "path": "src/IdentityService.Domain.Shared/IdentityService.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.Application.Contracts": {
+      "path": "src/IdentityService.Application.Contracts/IdentityService.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.HttpApi": {
+      "path": "src/IdentityService.HttpApi/IdentityService.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.HttpApi.Client": {
+      "path": "src/IdentityService.HttpApi.Client/IdentityService.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.EntityFrameworkCore.Tests": {
+      "path": "test/IdentityService.EntityFrameworkCore.Tests/IdentityService.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "IdentityService.EntityFrameworkCore": {
+      "path": "src/IdentityService.EntityFrameworkCore/IdentityService.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.TestBase": {
+      "path": "test/IdentityService.TestBase/IdentityService.TestBase.abppkg",
+      "folder": "test"
+    },
+    "IdentityService.Domain.Tests": {
+      "path": "test/IdentityService.Domain.Tests/IdentityService.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "IdentityService.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/IdentityService.HttpApi.Client.ConsoleTestApp/IdentityService.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "IdentityService.DbMigrator": {
+      "path": "src/IdentityService.DbMigrator/IdentityService.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.HttpApi.Host": {
+      "path": "src/IdentityService.HttpApi.Host/IdentityService.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "IdentityService.Domain": {
+      "path": "src/IdentityService.Domain/IdentityService.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
