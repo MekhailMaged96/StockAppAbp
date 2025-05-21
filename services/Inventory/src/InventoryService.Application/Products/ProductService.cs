@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 
 public class ProductService : ApplicationService, IProductService
 {
@@ -19,11 +20,25 @@ public class ProductService : ApplicationService, IProductService
         _logger = logger;
     }
 
-    public async Task<List<ProductDto>> GetListAsync()
+
+    public async Task<PagedResultDto<ProductDto>> GetListAsync(PagedAndSortedResultRequestDto input)
     {
-        _logger.LogInformation("Fetching product list");
-        var products = await _repository.GetListAsync();
-        return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
+        _logger.LogInformation("Fetching paged product list");
+
+        // Total count for pagination
+        var totalCount = await _repository.GetCountAsync();
+
+        // Get paged products
+        var products = await _repository.GetPagedListAsync(
+            input.SkipCount,
+            input.MaxResultCount,
+            input.Sorting ?? nameof(Product.Name) // default sorting
+        );
+
+        return new PagedResultDto<ProductDto>(
+            totalCount,
+            ObjectMapper.Map<List<Product>, List<ProductDto>>(products)
+        );
     }
 
     public async Task<ProductDto> GetAsync(Guid id)
