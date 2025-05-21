@@ -8,6 +8,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using JetBrains.Annotations;
 
 public class ProductService : ApplicationService, IProductService
 {
@@ -39,6 +40,13 @@ public class ProductService : ApplicationService, IProductService
             totalCount,
             ObjectMapper.Map<List<Product>, List<ProductDto>>(products)
         );
+    }
+    public async Task<List<ProductDto>> GetAllProducts()
+    {
+
+        var products = await _repository.GetListAsync();
+
+        return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
     }
 
     public async Task<ProductDto> GetAsync(Guid id)
@@ -113,4 +121,6 @@ public class ProductService : ApplicationService, IProductService
         await CurrentUnitOfWork.SaveChangesAsync();
         _logger.LogInformation("Replenished successfully. New quantity: {Quantity}", product.Quantity);
     }
+
+   
 }

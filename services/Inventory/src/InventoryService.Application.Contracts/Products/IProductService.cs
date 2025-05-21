@@ -11,7 +11,7 @@ namespace InventoryService.Products
     public interface IProductService :IApplicationService
     {
         Task<PagedResultDto<ProductDto>> GetListAsync(PagedAndSortedResultRequestDto input);
-        
+      Task<List<ProductDto>> GetAllProducts();
         Task<ProductDto> GetAsync(Guid id);
         Task<ProductDto> CreateAsync(CreateUpdateProductDto input);
         Task<ProductDto> UpdateAsync(Guid id, CreateUpdateProductDto input);

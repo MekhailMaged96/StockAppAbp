@@ -14,6 +14,7 @@ using Volo.Abp.ObjectMapping;
 using Volo.Abp.EventBus.RabbitMq;
 using Microsoft.Extensions.Logging;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 
 namespace OrderingService.Orders
 {
@@ -30,11 +31,23 @@ namespace OrderingService.Orders
             _logger = logger;
         }
 
-        public async Task<List<OrderDto>> GetListAsync()
+        public async Task<PagedResultDto<OrderDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            var orders = await _orderRepository.GetListAsync();
 
-            return ObjectMapper.Map<List<Order>, List<OrderDto>>(orders);
+            // Total count for pagination
+            var totalCount = await _orderRepository.GetCountAsync();
+
+            // Get paged products
+            var orders = await _orderRepository.GetPagedListAsync(
+                input.SkipCount,
+                input.MaxResultCount,
+                input.Sorting ?? nameof(Order.ProductId) // default sorting
+            );
+
+            return new PagedResultDto<OrderDto>(
+                totalCount,
+                ObjectMapper.Map<List<Order>, List<OrderDto>>(orders)
+            );
         }
         public async Task<Guid> CreateAsync(CreateOrderDto orderDto)
         {

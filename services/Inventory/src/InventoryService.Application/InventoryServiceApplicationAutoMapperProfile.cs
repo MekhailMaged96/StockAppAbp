@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using InventoryService.Products;
 
@@ -8,6 +9,7 @@ public class InventoryServiceApplicationAutoMapperProfile : Profile
     public InventoryServiceApplicationAutoMapperProfile()
     {
         CreateMap<Product, ProductDto>();
+
         CreateMap<CreateUpdateProductDto, Product>();
     }
 }

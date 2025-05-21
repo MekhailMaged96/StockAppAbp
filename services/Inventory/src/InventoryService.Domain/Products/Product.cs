@@ -10,12 +10,6 @@ namespace InventoryService.Products
     public class Product :AggregateRoot<Guid>
     {
         public string Name { get; set; }
-        public int Quantity { get; set; }
-        public Product() { }
-        public Product(Guid id, string name, int quantity)
-        {
-            Name = name;
-            Quantity = quantity;
-        }
+        public int Quantity { get; set; }      
     }
 }
