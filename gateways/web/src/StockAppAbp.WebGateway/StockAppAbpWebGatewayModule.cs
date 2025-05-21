@@ -79,6 +79,7 @@ namespace StockAppAbp.WebGateway
                 endpoints.MapReverseProxy();
             });
 
+            app.UseSwaggerUIWithYarp(context);
         }
     }
 }

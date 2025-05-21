@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text.Json;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -15,6 +16,7 @@ using Volo.Abp.OpenIddict.Applications;
 using Volo.Abp.OpenIddict.Scopes;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Uow;
+using static System.Net.WebRequestMethods;
 
 namespace IdentityService.OpenIddict;
 
@@ -154,14 +156,14 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: orderingServiceClientId!,
                 type: OpenIddictConstants.ClientTypes.Confidential,
-                consentType: OpenIddictConstants.ConsentTypes.Explicit,
+                consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Ordering Service",
-                secret: "1q2w3e*", // Replace with a secure value in production
+                secret: configurationSection["OrderingService:ClientSecret"], // Replace with a secure value in production
                 grantTypes: new List<string> {
-            OpenIddictConstants.GrantTypes.AuthorizationCode,
-            OpenIddictConstants.GrantTypes.ClientCredentials,
-            OpenIddictConstants.GrantTypes.Password,
-            OpenIddictConstants.GrantTypes.RefreshToken
+                OpenIddictConstants.GrantTypes.AuthorizationCode,
+                OpenIddictConstants.GrantTypes.Password,
+                OpenIddictConstants.GrantTypes.ClientCredentials,
+                OpenIddictConstants.GrantTypes.RefreshToken,
                 },
                 scopes: commonScopes,
                 redirectUris: new List<string> { orderingServiceRootUrl },
@@ -180,14 +182,15 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: inventoryServiceClientId!,
                 type: OpenIddictConstants.ClientTypes.Confidential,
-                consentType: OpenIddictConstants.ConsentTypes.Explicit,
+                consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Inventory Service",
-                secret: "1q2w3e*", // Replace with a secure value in production
+                secret: configurationSection["InventoryService:ClientSecret"], // Replace with a secure value in production
                 grantTypes: new List<string> {
-            OpenIddictConstants.GrantTypes.AuthorizationCode,
-            OpenIddictConstants.GrantTypes.ClientCredentials,
-            OpenIddictConstants.GrantTypes.Password,
-            OpenIddictConstants.GrantTypes.RefreshToken
+                    OpenIddictConstants.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.GrantTypes.ClientCredentials,
+                    OpenIddictConstants.GrantTypes.Password,
+                    OpenIddictConstants.GrantTypes.RefreshToken,
+                    OpenIddictConstants.GrantTypes.Implicit
                 },
                 scopes: commonScopes,
                 redirectUris: new List<string> { inventoryServiceRootUrl },
@@ -209,10 +212,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             await CreateApplicationAsync(
                 applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: swaggerClientId!,
-                type: OpenIddictConstants.ClientTypes.Confidential,
-                consentType: OpenIddictConstants.ConsentTypes.Explicit,
+                type: OpenIddictConstants.ClientTypes.Public,
+                consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Swagger Application",
-                 secret: "1q2w3e*",
+                 secret: null,
                  grantTypes: new List<string> {
                         OpenIddictConstants.GrantTypes.AuthorizationCode,
                         OpenIddictConstants.GrantTypes.ClientCredentials,
@@ -223,6 +226,8 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     $"{identitySwaggerRootUrl}/swagger/oauth2-redirect.html",
                     $"{orderingServiceRootUrl}/swagger/oauth2-redirect.html", 
                     $"{inventoryServiceRootUrl}/swagger/oauth2-redirect.html",
+                    "https://app.getpostman.com/oauth2/callback",
+                    "https://oauth.pstmn.io/v1/callback"
                 },
                 logoUri: "/images/clients/swagger.svg"
             );
@@ -432,7 +437,6 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         else
         {
             client.ClientId = application.ClientId;
-            client.ClientSecret = application.ClientSecret;
             client.ClientType = application.ClientType;
             client.DisplayName = application.DisplayName;
             client.ApplicationType = application.ApplicationType;

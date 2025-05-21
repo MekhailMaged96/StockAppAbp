@@ -69,30 +69,30 @@ public class OrderingServiceHttpApiHostModule : AbpModule
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
 
-        PreConfigure<OpenIddictBuilder>(builder =>
-        {
-            builder.AddValidation(options =>
-            {
-                options.AddAudiences("OrderingService");
-                options.UseLocalServer();
-                options.UseAspNetCore();
-            });
-        });
+        //PreConfigure<OpenIddictBuilder>(builder =>
+        //{
+        //    builder.AddValidation(options =>
+        //    {
+        //        options.AddAudiences("OrderingService");
+        //        options.UseLocalServer();
+        //        options.UseAspNetCore();
+        //    });
+        //});
 
 
-        if (!hostingEnvironment.IsDevelopment())
-        {
-            PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
-            {
-                options.AddDevelopmentEncryptionAndSigningCertificate = false;
-            });
+        //if (!hostingEnvironment.IsDevelopment())
+        //{
+        //    PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
+        //    {
+        //        options.AddDevelopmentEncryptionAndSigningCertificate = false;
+        //    });
 
-            PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
-            {
-                serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
-                serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
-            });
-        }
+        //    PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
+        //    {
+        //        serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
+        //        serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
+        //    });
+        //}
         Configure<AbpDistributedEntityEventOptions>(options =>
         {
             //Enable for all entities
@@ -215,7 +215,7 @@ public class OrderingServiceHttpApiHostModule : AbpModule
                                                     apiVersion: "v1",
                                                     apiName: "v1",
                                                     flows: new[] { AbpSwaggerOidcFlows.AuthorizationCode },
-                                                    discoveryEndpoint: null
+                                                    discoveryEndpoint: configuration["AuthServer:MetadataAddress"]
                                                 );
 
         //context.Services.AddAbpSwaggerGenWithOidc(
@@ -283,7 +283,7 @@ public class OrderingServiceHttpApiHostModule : AbpModule
         app.UseAbpSecurityHeaders();
         app.UseCors();
         app.UseAuthentication();
-        app.UseAbpOpenIddictValidation();
+      //  app.UseAbpOpenIddictValidation();
 
         if (MultiTenancyConsts.IsEnabled)
         {

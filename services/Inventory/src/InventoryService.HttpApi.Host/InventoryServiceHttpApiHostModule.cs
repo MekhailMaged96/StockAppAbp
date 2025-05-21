@@ -67,30 +67,30 @@ public class InventoryServiceHttpApiHostModule : AbpModule
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
 
-        PreConfigure<OpenIddictBuilder>(builder =>
-        {
-            builder.AddValidation(options =>
-            {
-                options.AddAudiences("InventoryService");
-                options.UseLocalServer();
-                options.UseAspNetCore();
-            });
-        });
+        //PreConfigure<OpenIddictBuilder>(builder =>
+        //{
+        //    builder.AddValidation(options =>
+        //    {
+        //        options.AddAudiences("InventoryService");
+        //        options.UseLocalServer();
+        //        options.UseAspNetCore();
+        //    });
+        //});
 
-        if (!hostingEnvironment.IsDevelopment())
-        {
-            PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
-            {
-                options.AddDevelopmentEncryptionAndSigningCertificate = false;
-            });
+        //if (!hostingEnvironment.IsDevelopment())
+        //{
+        //    PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
+        //    {
+        //        options.AddDevelopmentEncryptionAndSigningCertificate = false;
+        //    });
 
-            PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
-            {
+        //    PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
+        //    {
                 
-                serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
-                serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
-            });
-        }
+        //        serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
+        //        serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
+        //    });
+        //}
         Configure<AbpDistributedEntityEventOptions>(options =>
         {
             //Enable for all entities
@@ -215,7 +215,7 @@ public class InventoryServiceHttpApiHostModule : AbpModule
                                         apiVersion: "v1",
                                         apiName: "v1",
                                         flows: new[] { AbpSwaggerOidcFlows.AuthorizationCode },
-                                        discoveryEndpoint: null
+                                        discoveryEndpoint: configuration["AuthServer:MetadataAddress"]
                                     );
         //context.Services.AddAbpSwaggerGenWithOidc(
         //    configuration["AuthServer:Authority"]!,
@@ -282,7 +282,7 @@ public class InventoryServiceHttpApiHostModule : AbpModule
         app.UseAbpSecurityHeaders();
         app.UseCors();
         app.UseAuthentication();
-        app.UseAbpOpenIddictValidation();
+       // app.UseAbpOpenIddictValidation();
 
         if (MultiTenancyConsts.IsEnabled)
         {
@@ -300,6 +300,8 @@ public class InventoryServiceHttpApiHostModule : AbpModule
 
             var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
             options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+            options.OAuthScopes("InventoryService");
+          
         });
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
